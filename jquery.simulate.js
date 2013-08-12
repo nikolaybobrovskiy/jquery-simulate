@@ -85,7 +85,7 @@ $.extend( $.simulate.prototype, {
 	},
 
 	mouseEvent: function( type, options ) {
-		var event, eventDoc, doc, body, configureable = false;
+		var event, eventDoc, doc, body, configurable = false;
 		options = $.extend({
 			bubbles: true,
 			cancelable: (type !== "mousemove"),
@@ -115,7 +115,7 @@ $.extend( $.simulate.prototype, {
 			// Trying to modify the properties throws an error,
 			// so we define getters to return the correct values.
 			if ( Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor( event, "pageX" ).configurable && Object.defineProperty ) {
-				configureable = true;
+				configurable = true;
 			}
 			if ( event.pageX === 0 && event.pageY === 0 && configurable ) {
 				eventDoc = event.relatedTarget.ownerDocument || document;
