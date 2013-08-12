@@ -85,7 +85,7 @@ $.extend( $.simulate.prototype, {
 	},
 
 	mouseEvent: function( type, options ) {
-		var event, eventDoc, doc, body;
+		var event, eventDoc, doc, body, configureable = false;
 		options = $.extend({
 			bubbles: true,
 			cancelable: (type !== "mousemove"),
@@ -114,7 +114,10 @@ $.extend( $.simulate.prototype, {
 			// IE 9+ creates events with pageX and pageY set to 0.
 			// Trying to modify the properties throws an error,
 			// so we define getters to return the correct values.
-			if ( event.pageX === 0 && event.pageY === 0 && Object.defineProperty ) {
+			if ( Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor( event, "pageX" ).configurable && Object.defineProperty ) {
+				configureable = true;
+			}
+			if ( event.pageX === 0 && event.pageY === 0 && configurable ) {
 				eventDoc = event.relatedTarget.ownerDocument || document;
 				doc = eventDoc.documentElement;
 				body = eventDoc.body;
