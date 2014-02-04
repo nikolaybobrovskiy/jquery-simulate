@@ -354,14 +354,14 @@ $.extend( $.simulate.dragger.prototype, {
 				clientX: this.coord.clientX + dx,
 				clientY: this.coord.clientY + dy
 			},
-            i = 0,
-            x = 0,
-            y = 0,
-            coord = {};
+            i,
+            x = this.coord.clientX,
+            y = this.coord.clientY,
+            coord;
 
-		for ( i=0 ; i < moves-1 ; i++ ) {
-			x = (dx / moves);
-			y = (dy / moves);
+		for ( i = 0 ; i < moves - 1 ; i++ ) {
+			x += (dx / moves);
+			y += (dy / moves);
 			coord = {
 				clientX: Math.round( x ),
 				clientY: Math.round( y )
