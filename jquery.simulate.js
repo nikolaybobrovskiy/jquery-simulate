@@ -148,7 +148,7 @@ $.extend( $.simulate.prototype, {
 				0: 1,
 				1: 4,
 				2: 2
-			}[ event.button ] || event.button;
+			}[ event.button ] || ( event.button === -1 ? 0 : event.button );
 		}
 
 		return event;
@@ -306,6 +306,18 @@ function findCenter( elem ) {
 	};
 }
 
+function findCorner( elem ) {
+	var offset,
+		document = $( elem.ownerDocument );
+	elem = $( elem );
+	offset = elem.offset();
+
+	return {
+		x: offset.left - document.scrollLeft(),
+		y: offset.top - document.scrollTop()
+	};
+}
+
 $.extend( $.simulate.prototype, {
 	simulateDrag: function() {
 		var dragger = this.makeDragger();
@@ -336,7 +348,9 @@ $.extend( $.simulate.dragger.prototype, {
 
 		this.started = true;
 		this.target = target;
-		var center = findCenter( target );
+        this.document = target.ownerDocument || document;
+        
+		var center = options.handle === "corner" ? findCorner( target ) : findCenter( target );
 		this.coord = {
 			clientX: options.clientX || Math.floor( center.x ),
 			clientY: options.clientY || Math.floor( center.y )
@@ -369,10 +383,10 @@ $.extend( $.simulate.dragger.prototype, {
 				clientY: Math.round( y )
 			};
 
-			this.simulator.simulateEvent( document, "mousemove", coord );
+			this.simulator.simulateEvent( this.document, "mousemove", coord );
 		}
 
-		this.simulator.simulateEvent( document, "mousemove", final_coord );
+		this.simulator.simulateEvent( this.document, "mousemove", final_coord );
 		this.coord = final_coord;
 
 	},
@@ -386,8 +400,12 @@ $.extend( $.simulate.dragger.prototype, {
 
 		this.ended = true;
 
-		this.simulator.simulateEvent( this.target, "mouseup", this.coord );
-		this.simulator.simulateEvent( this.target, "click", this.coord );
+		if ( $.contains( document, this.target ) ) {
+			this.simulator.simulateEvent( this.target, "mouseup", this.coord );
+			this.simulator.simulateEvent( this.target, "click", this.coord );
+		} else {
+			this.simulator.simulateEvent( this.target, "mouseup", this.coord );
+		}
 	}
 });
 
