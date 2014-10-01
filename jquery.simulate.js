@@ -9,7 +9,17 @@
  * Date: @DATE
  */
 
-;(function( $, undefined ) {
+(function (root, doc, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], function(jQuery) {
+            factory(root, doc, jQuery);
+        });
+    } else {
+        // Browser globals
+        factory(root, doc, root.jQuery);
+    }
+}(this, document, function (window, document, $, undefined) {
 
 var rkeyEvent = /^key/,
 	rmouseEvent = /^(?:mouse|contextmenu)|click/,
@@ -391,4 +401,5 @@ $.extend( $.simulate.dragger.prototype, {
 	}
 });
 
-})( jQuery );
+}));        // UMD wrapper end
+
