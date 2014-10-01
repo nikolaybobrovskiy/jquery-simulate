@@ -10,5 +10,11 @@
 	"quotmark": "double",
 	"trailing": true,
 	"undef": true,
-	"unused": true
+	"unused": true,
+
+    "globals"   : {
+        /* RequireJS/UMD */
+        "define": false,
+        "require": false
+    }
 }

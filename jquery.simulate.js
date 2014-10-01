@@ -10,9 +10,9 @@
  */
 
 (function (root, doc, factory) {
-    if (typeof define === 'function' && define.amd) {
+    if (typeof define === "function" && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['jquery'], function(jQuery) {
+        define(["jquery"], function(jQuery) {
             factory(root, doc, jQuery);
         });
     } else {
