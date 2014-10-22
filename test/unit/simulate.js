@@ -1,8 +1,8 @@
-(function() {
+(function () {
 
 module( "mouse events" );
 
-test( "click on checkbox triggers change", function() {
+test( "click on checkbox triggers change", function () {
 	var input = $( "#radiocheckbox-3" ),
 		checked = input.prop( "checked" );
 
@@ -11,7 +11,7 @@ test( "click on checkbox triggers change", function() {
 	notEqual( checked, input.prop( "checked" ), "checkbox state changed" );
 });
 
-test( "click on radio triggers change", function() {
+test( "click on radio triggers change", function () {
 	var firstRadio = $( "#radiocheckbox-1" ),
 		secondRadio = $( "#radiocheckbox-2" ),
 		checked = firstRadio.prop( "checked" );
@@ -25,66 +25,66 @@ test( "click on radio triggers change", function() {
 	notEqual( checked, firstRadio.prop( "checked" ), "radio state changed" );
 });
 
-test( "accept dragstart event", function() {
-	var bindCalled = false
-	jQuery('<div></div>').bind('dragstart', function(e) {
-		bindCalled = true
-	}).simulate('dragstart',{})
-	equal(bindCalled, true)
+test( "accept dragstart event", function () {
+	var bindCalled = false;
+	jQuery( "<div></div>" ).bind( "dragstart", function (e) {
+		bindCalled = true;
+	}).simulate( "dragstart", {} );
+	equal( bindCalled, true );
 });
 
-test( "accept dragenter event", function() {
-	var bindCalled = false
-	jQuery('<div></div>').bind('dragenter', function(e) {
-		bindCalled = true
-	}).simulate('dragenter',{})
-	equal(bindCalled, true)
+test( "accept dragenter event", function () {
+	var bindCalled = false;
+	jQuery( "<div></div>" ).bind( "dragenter", function (e) {
+		bindCalled = true;
+	}).simulate( "dragenter", {} );
+	equal( bindCalled, true );
 });
 
-test( "accept drageleave event", function() {
-	var bindCalled = false
-	jQuery('<div></div>').bind('dragleave', function(e) {
-		bindCalled = true
-	}).simulate('dragleave',{})
-	equal(bindCalled, true)
+test( "accept drageleave event", function () {
+	var bindCalled = false;
+	jQuery( "<div></div>" ).bind( "dragleave", function (e) {
+		bindCalled = true;
+	}).simulate( "dragleave", {} );
+	equal( bindCalled, true );
 });
 
-test( "accept drageover event", function() {
-	var bindCalled = false
-	jQuery('<div></div>').bind('dragover', function(e) {
-		bindCalled = true
-	}).simulate('dragover',{})
-	equal(bindCalled, true)
+test( "accept drageover event", function () {
+	var bindCalled = false;
+	jQuery( "<div></div>" ).bind( "dragover", function (e) {
+		bindCalled = true;
+	}).simulate( "dragover", {} );
+	equal( bindCalled, true );
 });
 
-test( "accept dragend event", function() {
-	var bindCalled = false
-	jQuery('<div></div>').bind('dragend', function(e) {
-		bindCalled = true
-	}).simulate('dragend',{})
-	equal(bindCalled, true)
+test( "accept dragend event", function () {
+	var bindCalled = false;
+	jQuery( "<div></div>" ).bind( "dragend", function (e) {
+		bindCalled = true;
+	}).simulate( "dragend", {} );
+	equal( bindCalled, true );
 });
 
-test( "accept drop event", function() {
-	var bindCalled = false
-	jQuery('<div></div>').bind('drop', function(e) {
-		bindCalled = true
-	}).simulate('drop',{})
-	equal(bindCalled, true)
+test( "accept drop event", function () {
+	var bindCalled = false;
+	jQuery( "<div></div>" ).bind( "drop", function (e) {
+		bindCalled = true;
+	}).simulate( "drop", {} );
+	equal( bindCalled, true );
 });
 
-test( "do not accept dragunknown event", function() {
-	var bindCalled = false
-	var expectException = false
+test( "do not accept dragunknown event", function () {
+	var bindCalled = false;
+	var expectException = false;
 	try {
-		jQuery('<div></div>').bind('dragunknown', function(e) {
-			bindCalled = true
-		}).simulate('dragunknown',{})
+		jQuery( "<div></div>" ).bind( "dragunknown", function (e) {
+			bindCalled = true;
+		}).simulate( "dragunknown", {} );
 	} catch (e) {
-		expectException = true
+		expectException = true;
 	}
-	notEqual(bindCalled, true)
-	equal(expectException, true)
+	notEqual( bindCalled, true );
+	equal( expectException, true );
 });
 
 
@@ -95,12 +95,12 @@ var key = jQuery.simulate.keyCode,
 module( "key events" );
 
 function testKeyEvent ( keyEvent ) {
-	test( keyEvent, function() {
+	test( keyEvent, function () {
 		expect( 2 );
-		jQuery("<div></div>").bind( keyEvent, function( event ) {
+		jQuery( "<div></div>" ).bind( keyEvent, function ( event ) {
 			ok( true, keyEvent + " event fired" );
 			equal( event.keyCode, key.PAGE_UP, keyEvent + " event has correct keyCode" );
-		}).appendTo("#qunit-fixture").simulate( keyEvent, {
+		}).appendTo( "#qunit-fixture" ).simulate( keyEvent, {
 			keyCode: key.PAGE_UP
 		});
 	});
@@ -112,11 +112,11 @@ for ( ; i < keyEvents.length; i++ ) {
 
 module( "mousemove events" );
 
-asyncTest( "fire mouseover/mouseout events on DOM elements the mouse collides with", function() {
+asyncTest( "fire mouseover/mouseout events on DOM elements the mouse collides with", function () {
 
 	var moves = 4,
 		calls = 1,
-		el = jQuery("<div class='top-left'></div>").appendTo("#qunit-fixture"),
+		el = jQuery( "<div class='top-left'></div>" ).appendTo( "#qunit-fixture" ),
 		auditTrail = [];
 
 	// Expect one assertion per event, and one test of the audit trail
@@ -146,7 +146,7 @@ asyncTest( "fire mouseover/mouseout events on DOM elements the mouse collides wi
 			// Record the event
 			auditTrail.push( "call" + calls + ";mouseout" );
 		});
-	jQuery( document ).bind( "mousemove", function() {
+	jQuery( document ).bind( "mousemove", function () {
 		ok( true, "mousemove event fired at the document" );
 
 		// Record the event
@@ -200,37 +200,37 @@ asyncTest( "fire mouseover/mouseout events on DOM elements the mouse collides wi
 
 module( "complex events" );
 
-asyncTest( "drag moves option", function() {
+asyncTest( "drag moves option", function () {
 	var expectedMoves = 20,
 		expectedUps = 6,
 		expectedDowns = 6,
 		callsMoves = 0,
 		callsUp = 0,
-		el = jQuery("<div class='top-left'></div>").appendTo("#qunit-fixture"),
+		el = jQuery( "<div class='top-left'></div>" ).appendTo( "#qunit-fixture" ),
 		position;
 
 	expect(expectedUps + expectedDowns + expectedMoves);
 
-	jQuery(document).bind("mousedown", function (event) {
-		ok(true, "mousedown event fired at the document");
+	jQuery(document).bind( "mousedown", function (event) {
+		ok( true, "mousedown event fired at the document" );
 		position = {
 			clientX: event.clientX,
 			clientY: event.clientY
 		};
-	}).bind("mouseup", function () {
-		ok(true, "mouseup event fired at the document");
+	}).bind( "mouseup", function () {
+		ok( true, "mouseup event fired at the document" );
 		if (++callsUp === expectedUps) {
 			jQuery(document)
-				.unbind("mousedown")
-				.unbind("mousemove")
-				.unbind("mouseup");
+				.unbind( "mousedown" )
+				.unbind( "mousemove" )
+				.unbind( "mouseup" );
 			start();
 		}
-	}).bind("mousemove", function (event) {
-		ok(true, "mousemove event fired at the document");
+	}).bind( "mousemove", function (event) {
+		ok( true, "mousemove event fired at the document" );
 		if (++callsMoves === expectedMoves - 2 - 3) {
-			equal(position.clientX + 10, event.clientX, "last mousemove fired at correct clientX");
-			equal(position.clientY + 20, event.clientY, "last mousemove fired at correct clientX");
+			equal(position.clientX + 10, event.clientX, "last mousemove fired at correct clientX" );
+			equal(position.clientY + 20, event.clientY, "last mousemove fired at correct clientX" );
 		}
 	});
 
@@ -259,7 +259,7 @@ asyncTest( "drag moves option", function() {
 	});
 	
 	// no moves
-	el.simulate("drag", {
+	el.simulate( "drag", {
 		moves: 0,
 		dx: 0,
 		dy: 0
