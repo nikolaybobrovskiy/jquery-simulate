@@ -80,10 +80,42 @@ $.extend( $.simulate, {
 
 $.extend( $.simulate.prototype, {
 
-	simulateEvent: function( elem, type, options ) {
-		var event = this.createEvent( type, options );
-		this.dispatchEvent( elem, type, event, options );
-	},
+    simulateEvent: function (elem, type, options) {
+        if (window.navigator.pointerEnabled) {
+            if (type === 'click') {
+                this.simulateEventExact(elem, 'pointerdown', options);
+                type = 'pointerup';
+            }
+            else if (type === 'mousedown') {
+                type = 'pointerdown';
+            }
+            else if (type === 'mouseup') {
+                type = 'pointerup';
+            }
+            else if (type === 'mousemove') {
+                type = 'pointermove';
+            }
+            else if (type === 'mouseover') {
+                type = 'mouseover';
+            }
+            else if (type === 'mouseout') {
+                type = 'pointerout';
+            }
+            else if (type === 'mouseenter') {
+                type = 'pointerenter';
+            }
+            else if (type === 'mouseleave') {
+                type = 'pointerleave';
+            }
+        }
+
+        this.simulateEventExact(elem, type, options);
+    },
+
+    simulateEventExact: function (elem, type, options) {
+        var event = this.createEvent(type, options);
+        this.dispatchEvent(elem, type, event, options);
+    },
 
 	createEvent: function( type, options ) {
 		if ( rkeyEvent.test( type ) ) {
