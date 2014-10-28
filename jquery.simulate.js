@@ -22,7 +22,7 @@
 }(this, document, function (window, document, $, undefined) {
 
 var rkeyEvent = /^key/,
-    rmouseEvent = /^(?:mouse|contextmenu)|click|drag(?:start|end|over|leave|enter)|drop/,
+    rmouseEvent = /^(?:mouse|pointer|contextmenu)|click|drag(?:start|end|over|leave|enter)|drop/,
 	currentElementUnderMouse;
 
 $.fn.simulate = function( type, options ) {
