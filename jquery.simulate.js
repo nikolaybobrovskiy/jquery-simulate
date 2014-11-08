@@ -96,7 +96,7 @@ $.extend( $.simulate.prototype, {
                 type = 'pointermove';
             }
             else if (type === 'mouseover') {
-                type = 'mouseover';
+                type = 'pointerover';
             }
             else if (type === 'mouseout') {
                 type = 'pointerout';
